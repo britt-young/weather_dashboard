@@ -35,6 +35,16 @@ h1{
     border: 1px solid #ccc;
 }
 
+#or{
+    height: 1px;
+    width: 100%;
+    margin: 25px 0;
+    background: #BBBBBB;
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+}
+
 #or::before {
     content: "or";
     color: #565d63;
@@ -75,6 +85,22 @@ h1{
   .weather-input .location-btn:hover {
     background: #5c636a;
   }
+
+#prev1{
+    background: black;
+    color: white;
+}
+
+#prev2{
+    background: black;
+    color: white;
+}
+
+#prev3{
+    background: black;
+    color: white;
+}
+
   .weather-data {
     width: 100%;
   }
