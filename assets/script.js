@@ -1,6 +1,9 @@
 const cityInput = document.querySelector(".city-input");
 const searchButton = document.querySelector(".searchBtn");
 const locationButton = document.querySelector(".locationBtn");
+const prev1 = document.getElementById("#prev1");
+const prev2 = document.getElementById("#prev2");
+const prev3 = document.getElementById("#prev3");
 const currentWeatherDiv = document.querySelector(".current-weather");
 const weatherCardsDiv = document.querySelector(".weather-cards");
 
@@ -125,7 +128,7 @@ const getUserCoordinates = () => {
     }
   );
 };
-
+// Event listener for search button/ enter to execute location function
 locationButton.addEventListener("click", getUserCoordinates);
 searchButton.addEventListener("click", getCityCoordinates);
 cityInput.addEventListener(
@@ -133,17 +136,32 @@ cityInput.addEventListener(
   (e) => e.key === "Enter" && getCityCoordinates()
 );
 
-function saveSearches(e) {
-  e.preventDefault();
+// Event listener for search button/ enter to execute local storage functions
+searchButton.addEventListener("click", saveAndDisplaySearch);
+cityInput.addEventListener(
+  "keyup",
+  (e) => e.key === "Enter" && saveAndDisplaySearch()
+);
 
-    localStorage.setItem("prevSearch1", cityInput);
-    document.getElementById("prev1").innerHTML = localStorage.getItem("prevSearch1");
+//--------------------------------------------------------------------------------------------------------------------------------------------//
+function saveAndDisplaySearch() {
+  const cityValue = cityInput.value;
 
-    localStorage.setItem("prevSearch2", cityInput);
-    document.getElementById("prev2").innerHTML = localStorage.getItem("prevSearch2");
+  // Save the current search to local storage and update the display
+  updatePreviousSearch(3, localStorage.getItem("prevCity2"));
+  updatePreviousSearch(2, localStorage.getItem("prevCity1"));
+  updatePreviousSearch(1, cityValue);
 
-    localStorage.setItem("prevSearch3", cityInput);
-    document.getElementById("prev3").innerHTML = localStorage.getItem("prevSearch3");
+  // Clear the search input after saving
+  cityInput.value = "";
+}
+
+function updatePreviousSearch(index, value) {
+  if ((value === null)) {
+    document.getElementById(`prev${index}`).innerHTML = "";
+  } else {
+    const key = `prevCity${index}`;
+    localStorage.setItem(key, value);
+    document.getElementById(`prev${index}`).innerHTML = localStorage.getItem(key);
   }
-searchButton.addEventListener("click", saveSearches);
-searchButton.addEventListener("keyup", saveSearches);
+}
