@@ -1,9 +1,9 @@
 const cityInput = document.querySelector(".city-input");
 const searchButton = document.querySelector(".searchBtn");
 const locationButton = document.querySelector(".locationBtn");
-const prev1 = document.getElementById("#prev1");
-const prev2 = document.getElementById("#prev2");
-const prev3 = document.getElementById("#prev3");
+const prev1Button = document.getElementById("prev1");
+const prev2Button = document.getElementById("prev2");
+const prev3Button = document.getElementById("prev3");
 const currentWeatherDiv = document.querySelector(".current-weather");
 const weatherCardsDiv = document.querySelector(".weather-cards");
 
@@ -128,7 +128,57 @@ const getUserCoordinates = () => {
     }
   );
 };
-// Event listener for search button/ enter to execute location function
+
+// Get weather details from previous searches button
+const getPrevCoordinates = (index) => {
+  const cityName = localStorage.getItem(`prevCity${index}`);
+  // Check if the city name is available in localStorage
+  if (!cityName) return; 
+  const API_URL = `https://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=1&appid=${API_KEY}`;
+
+  // Get entered city coordinates (latitude, longitude, and name) from the API response
+  fetch(API_URL)
+    .then((response) => response.json())
+    .then((data) => {
+      if (!data.length) {
+        alert(`No coordinates found for ${cityName}`);
+        return;
+      }
+      const { lat, lon, name } = data[0];
+      // Update the UI with the weather details
+      getWeatherDetails(name, lat, lon);
+    })
+    .catch(() => {
+      alert("An error occurred while fetching the coordinates!");
+    });
+}; 
+
+
+// Function to save city input into local storage and display up to 3 previous searches
+function saveAndDisplaySearch() {
+  const cityValue = cityInput.value;
+
+  // Save the current search to local storage and update the display
+  updatePreviousSearch(3, localStorage.getItem("prevCity2"));
+  updatePreviousSearch(2, localStorage.getItem("prevCity1"));
+  updatePreviousSearch(1, cityValue);
+
+  // Clear the search input after saving
+  cityInput.value = "";
+}
+
+// Create save chain of all previous searches (up to 3) and display them in the HTML button location
+function updatePreviousSearch(index, value) {
+  if ((value === null)) {
+    document.getElementById(`prev${index}`).innerHTML = "";
+  } else {
+    const key = `prevCity${index}`;
+    localStorage.setItem(key, value);
+    document.getElementById(`prev${index}`).innerHTML = localStorage.getItem(key);
+  }
+}
+
+// Event listener for search button/ enter to execute location functions and display weather details
 locationButton.addEventListener("click", getUserCoordinates);
 searchButton.addEventListener("click", getCityCoordinates);
 cityInput.addEventListener(
@@ -143,25 +193,22 @@ cityInput.addEventListener(
   (e) => e.key === "Enter" && saveAndDisplaySearch()
 );
 
-//--------------------------------------------------------------------------------------------------------------------------------------------//
-function saveAndDisplaySearch() {
-  const cityValue = cityInput.value;
-
-  // Save the current search to local storage and update the display
-  updatePreviousSearch(3, localStorage.getItem("prevCity2"));
-  updatePreviousSearch(2, localStorage.getItem("prevCity1"));
-  updatePreviousSearch(1, cityValue);
-
-  // Clear the search input after saving
-  cityInput.value = "";
-}
-
-function updatePreviousSearch(index, value) {
-  if ((value === null)) {
-    document.getElementById(`prev${index}`).innerHTML = "";
-  } else {
-    const key = `prevCity${index}`;
-    localStorage.setItem(key, value);
-    document.getElementById(`prev${index}`).innerHTML = localStorage.getItem(key);
+  // Check if elements are found then adding event listeners to previous searches
+  if (prev1Button) {
+    prev1Button.addEventListener("click", () => {
+      console.log("Clicked on prev1Button");
+      getPrevCoordinates(1);
+    });
   }
-}
+  if (prev2Button) {
+    prev2Button.addEventListener("click", () => {
+      console.log("Clicked on prev2Button");
+      getPrevCoordinates(2);
+    });
+  }
+  if (prev3Button) {
+    prev3Button.addEventListener("click", () => {
+      console.log("Clicked on prev3Button");
+      getPrevCoordinates(3);
+    });
+  }
