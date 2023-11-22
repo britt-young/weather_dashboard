@@ -10,10 +10,11 @@ body {
 }
 
 h1 {
-  color: black;
-  font-size: 2rem;
-  background: rgb(247, 246, 177);
-  text-align: start;
+  color:black;
+  font-size: 3rem;
+  background: rgb(253,187,45);
+  background: linear-gradient(0deg, rgba(253,187,45,1) 0%, rgba(123,144,230,1) 48%);
+  text-align: center;
   padding: 18px 10px;
 }
 
@@ -150,7 +151,7 @@ h1 {
 }
 .weather-data .current-weather {
   color: #fff;
-  background: #7b90e6;;
+  background: #7b90e6;
   border-radius: 5px;
   box-shadow: 10px 5px 5px gray;
   padding: 20px 70px 20px 20px;
@@ -190,7 +191,7 @@ h1 {
   padding: 18px 16px;
   list-style: none;
   width: calc(100% / 5);
-  background: white;
+  background: rgb(224, 228, 233);
   border-radius: 5px;
   box-shadow: 10px 5px 5px gray;
 }
