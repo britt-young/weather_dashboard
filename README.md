@@ -2,15 +2,14 @@
 
 ## Description
 
-AS A traveler
-I WANT to see the weather outlook for multiple cities
-SO THAT I can plan a trip accordingly
+As a traveler,
+I want to see the weather outlook for multiple cities,
+so that I can plan a trip accordingly
 
-## Table of Contents (Optional)
+## Table of Contents
 - [Installation](#installation)
 - [Usage](#usage)
 - [Credits](#credits)
-- [License](#license)
 
 ## Installation
 
@@ -18,11 +17,11 @@ A source-code editor is needed to edit/run code, I recommend Visual Studio Code 
 
 ## Usage
 
-Users will need to register for a new API key from Open Weather Map: [API registration link](https://openweathermap.org/api/one-call-3)
-After registering for a new API key, you may need to wait up to 2 hours for that API key to activate
-Once activated, the user will need to ensure their base URL looks like the following: ``` https://api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid={API key} ```
+- Users will need to register for a new API key from Open Weather Map: [here](https://openweathermap.org/api/one-call-3)
+- After registering for a new API key, you may need to wait up to 2 hours for that API key to activate
+- Once activated, the user will need to ensure their base URL looks like the following: ``` https://api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid={API key} ```
 
-[MOCKUP PRODUCT IMG](assets/mockup%20product.png)
+![MOCKUP PRODUCT IMG](assets/mockup%20product.png)
 
 
 ## Credits
